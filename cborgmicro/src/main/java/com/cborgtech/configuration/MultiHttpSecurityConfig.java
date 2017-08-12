@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.toasthub.core.general.filter.TenantInterceptor;
 import org.toasthub.security.filter.ToasthubLoginFilter;
 import org.toasthub.security.service.UserManagerSvc;
 
@@ -39,6 +40,7 @@ public class MultiHttpSecurityConfig {
 		
 		protected void configure(HttpSecurity http) throws Exception {
 			http.csrf().disable()
+				.addFilterBefore(tenantInterceptor(), BasicAuthenticationFilter.class)
 				.antMatcher("/api/**")
 				.addFilterAfter(toasthubLoginFilter(), BasicAuthenticationFilter.class)
 				.exceptionHandling()
@@ -61,7 +63,6 @@ public class MultiHttpSecurityConfig {
 			http.csrf().disable()
             .authorizeRequests()
 				.antMatchers("/", "/login/**", "/1.0/**", "/css/**", "/img/**", "/libs/**", "/js/**", "/public/**").permitAll()
-				.antMatchers("/test/**").hasAuthority("PRIVATE")
 				.anyRequest().authenticated()
             .and()
             .formLogin()
@@ -75,6 +76,10 @@ public class MultiHttpSecurityConfig {
 			.exceptionHandling()
 				.accessDeniedHandler(accessDeniedHandler);
 		}
+	}
+	
+	private TenantInterceptor tenantInterceptor() {
+		return new TenantInterceptor();
 	}
 	
 	private ToasthubLoginFilter toasthubLoginFilter() {
