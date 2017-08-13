@@ -1,5 +1,7 @@
 package com.cborgtech.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
@@ -19,7 +21,8 @@ import com.netflix.discovery.EurekaClient;
 
 @Component("MicroServiceClient")
 public class MicroServiceClientImpl implements MicroServiceClient {
-
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	protected RestTemplateBuilder restTemplateBuilder;
 	
@@ -39,9 +42,10 @@ public class MicroServiceClientImpl implements MicroServiceClient {
 		StringBuilder url = new StringBuilder();
 		url.append(baseUrl);
 		url.append((String) request.getParams().get(GlobalConstant.MICROSERVICEPATH));
+		logger.info("call url " + url.toString());
 		ResponseEntity<RestResponse> result = restTemplate.exchange(url.toString(), HttpMethod.POST, entity, RestResponse.class);
 		
-		response = result.getBody();
+		response.setParams(((RestResponse) result.getBody()).getParams());
 	}
 
 }
