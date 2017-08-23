@@ -1,4 +1,4 @@
-package com.cborgtech.service;
+package com.cborgtech.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import org.toasthub.core.general.model.GlobalConstant;
 import org.toasthub.core.general.model.RestRequest;
 import org.toasthub.core.general.model.RestResponse;
-import org.toasthub.core.general.service.MicroServiceClient;
+import org.toasthub.core.serviceCrawler.MicroServiceClient;
 
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;

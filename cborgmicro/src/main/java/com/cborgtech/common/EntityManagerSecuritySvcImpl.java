@@ -1,10 +1,10 @@
-package com.cborgtech.service;
+package com.cborgtech.common;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Component;
-import org.toasthub.core.general.service.EntityManagerSecuritySvc;
+import org.toasthub.core.common.EntityManagerSecuritySvc;
 
 
 @Component("EntityManagerSecuritySvc")

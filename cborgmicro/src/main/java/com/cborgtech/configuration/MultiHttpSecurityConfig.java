@@ -14,7 +14,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.toasthub.core.general.filter.TenantInterceptor;
 import org.toasthub.security.filter.ToasthubLoginFilter;
-import org.toasthub.security.service.UserManagerSvc;
+import org.toasthub.security.userManager.UserManagerSvc;
 
 import com.cborgtech.controller.RestAuthenticationEntryPoint;
 
