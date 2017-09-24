@@ -48,7 +48,7 @@ function publicLayout(instanceName){
 		var logo = document.createElement("A");
 		logo.className = "navbar-brand page-scroll";
 		logo.href = "#page-top";
-		logo.innerHTML = "CBORGTECH";
+		logo.innerHTML = "ToastHUB";
 		navHeader.appendChild(logo);
 		
 		

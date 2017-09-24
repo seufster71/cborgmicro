@@ -35,16 +35,16 @@ function toastHubIndex(instanceName){
 		this.headerRenderer(params);
 		
 		// add services
-		this.serviceRenderer(params);
+		//this.serviceRenderer(params);
 		
 		// add portfolio
-		this.portfolioRenderer(params);
+		//this.portfolioRenderer(params);
 		
 		// add about
-		this.aboutRenderer(params);
+		//this.aboutRenderer(params);
 		
 		// add team
-		this.teamRenderer(params);
+		//this.teamRenderer(params);
 		
 	}; // initContent
 	
