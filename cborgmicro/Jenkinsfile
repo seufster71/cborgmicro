@@ -1,0 +1,56 @@
+node {
+    stage 'build core'
+    git credentialsId: '2c3877ec-07ca-437f-b133-dbbf0a44a6bd', url: 'ssh://jenkinsgit@cborghome.ddns.net/opt/gitcborg/toasthub-core.git'
+    
+    def core_path = "toasthub-core"
+    dir(core_path) {
+        sh 'mvn clean install'
+    }
+    
+    stage 'build security'
+    git credentialsId: '2c3877ec-07ca-437f-b133-dbbf0a44a6bd', url: 'ssh://jenkinsgit@cborghome.ddns.net/opt/gitcborg/toasthub-security.git'
+    
+    def security_path = "toasthub-security"
+    dir(security_path) {
+        sh 'mvn clean install'
+    }
+    
+    stage 'build admin'
+    git credentialsId: '2c3877ec-07ca-437f-b133-dbbf0a44a6bd', url: 'ssh://jenkinsgit@cborghome.ddns.net/opt/gitcborg/toasthub-admin.git'
+    
+    def admin_path = "toasthub-admin"
+    dir(admin_path) {
+        sh 'mvn clean install -DskipTests'
+    }
+    
+    stage 'build member'
+    git credentialsId: '2c3877ec-07ca-437f-b133-dbbf0a44a6bd', url: 'ssh://jenkinsgit@cborghome.ddns.net/opt/gitcborg/toasthub-member.git'
+    
+    def member_path = "toasthub-member"
+    dir(member_path) {
+        sh 'mvn clean install -DskipTests'
+    }
+    
+    stage 'build web'
+    git credentialsId: '2c3877ec-07ca-437f-b133-dbbf0a44a6bd', url: 'ssh://jenkinsgit@cborghome.ddns.net/opt/gitcborg/toasthub-core-web.git'
+    
+    def web_path = "toasthub-core-web"
+    dir(web_path) {
+        sh 'mvn clean install -DskipTests'
+    }
+    
+    stage 'build app'
+    git credentialsId: '2c3877ec-07ca-437f-b133-dbbf0a44a6bd', url: 'ssh://jenkinsgit@cborghome.ddns.net/opt/gitcborg/cborgmicro.git'
+    
+    def app_path = "cborgmicro"
+    dir(app_path) {
+        sh 'mvn clean package -DskipTests'
+    }
+    
+    stage 'deploy'
+    def workspace = pwd()
+    echo "work space ${workspace}"
+    sshagent(['2c3877ec-07ca-437f-b133-dbbf0a44a6bd']) {
+        sh "scp ${workspace}/cborgmicro/target/cborgmicro-1.0-SNAPSHOT.jar jenkinsgit@cborghome.ddns.net:/opt/test"
+    }
+}
