@@ -47,10 +47,8 @@ node {
         sh 'mvn clean package -DskipTests'
     }
     
-    stage 'deploy'
+    stage 'move to deploy area'
     def workspace = pwd()
     echo "work space ${workspace}"
-    sshagent(['2c3877ec-07ca-437f-b133-dbbf0a44a6bd']) {
-        sh "scp ${workspace}/cborgmicro/target/cborgmicro-1.0-SNAPSHOT.jar jenkinsgit@cborghome.ddns.net:/opt/test"
-    }
+    sh "cp ${workspace}/cborgmicro/target/cborgmicro-1.0-SNAPSHOT.jar /opt/software"
 }
