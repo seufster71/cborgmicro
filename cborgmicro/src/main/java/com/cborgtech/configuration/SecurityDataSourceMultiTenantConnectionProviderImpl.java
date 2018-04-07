@@ -34,11 +34,11 @@ public class SecurityDataSourceMultiTenantConnectionProviderImpl extends Abstrac
 	protected DataSource selectDataSource(String tenantIdentifier) {
 		logger.info("security tenant Identifier "+ tenantIdentifier);
 		if ("localhost".equals(tenantIdentifier)){
-			tenantIdentifier = "internet";
+			tenantIdentifier = "INTERNET";
 		}
 		ClientDomain clientDomain = appCacheClientDomains.getClientDomain(tenantIdentifier);
 		if (clientDomain != null) {
-			tenantIdentifier = clientDomain.getAPPDomain();
+			tenantIdentifier = clientDomain.getCustDomain();
 		}
 		logger.info("get security datasource "+ tenantIdentifier);
 		return this.securityDataSourcesApplication.get(tenantIdentifier);

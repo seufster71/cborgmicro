@@ -24,7 +24,7 @@ public class SecurityTenantIdentifierResolverImpl implements CurrentTenantIdenti
 		} else {
 			ClientDomain clientDomain = appCacheClientDomains.getClientDomain(TenantContext.getURLDomain());
 			if (clientDomain != null) {
-				currentTenantId = clientDomain.getAPPDomain();
+				currentTenantId = clientDomain.getCustDomain();
 			}
 			logger.info("security resolver "+ currentTenantId);
 		}

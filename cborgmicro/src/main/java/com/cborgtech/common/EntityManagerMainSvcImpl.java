@@ -35,6 +35,11 @@ public class EntityManagerMainSvcImpl implements EntityManagerMainSvc {
 	}
 
 	@Override
+	public String getCustDomain() {
+		return getClientDomain().getCustDomain();
+	}
+	
+	@Override
 	public String getHTMLPrefix() {
 		return getClientDomain().getHTMLPrefix();
 	}
